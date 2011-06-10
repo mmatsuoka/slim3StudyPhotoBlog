@@ -12,7 +12,7 @@
 </head>
 <body>
   <div id="page">
-  <h1>SimpleBBS</h1>
+  <h1>SimpleBBS</h1><div> ${f:h(user.email)} : ${f:h(user.userId)} : ${f:h(user.nickname)} </div>
   <div class="err">${errors.message}</div>
   <table>
     <thead>

@@ -19,20 +19,20 @@ public class Comment implements Serializable {
 
     @Attribute(version = true)
     private Long version;
-    
+
     // 投稿者名
     private String username;
-    
+
     // コメント本文
     @Attribute(lob=true)
     private String comment;
-    
+
     // 投稿日時
     private Date postDate;
-    
+
     // Headへの多対1の関連
     private ModelRef<Head> headRef = new ModelRef<Head>(Head.class);
-    
+
 
     /**
      * Returns the key.

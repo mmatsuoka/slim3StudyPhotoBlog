@@ -9,6 +9,7 @@ import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.users.User;
 import com.mprog.photoBlog.meta.CommentMeta;
 
 @Model(schemaVersion = 1)
@@ -21,34 +22,45 @@ public class Head implements Serializable {
 
     @Attribute(version = true)
     private Long version;
-    
-    // 見出し 
+
+    // 見出し
     private String title;
-    
-    // 投稿日時 
+
+    // 投稿日時
     private Date postDate;
-    
-    // 投稿者名 
+
+    // 投稿者名
     private String username;
-    
-    // 編集用パスワード 
+
+    // 編集用パスワード
     private String password;
-    
-    // 最新コメントID（＝コメント数） 
+
+    // 最新コメントID（＝コメント数）
     private Long lastCommentId = 0L;
-    
-    // 最新コメント日時 
+
+    // 最新コメント日時
     private Date lastCommentDate;
-    
-    // Bodyへの1対1の関連 
+
+    // 投稿者のユーザー情報
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    // Bodyへの1対1の関連
     private ModelRef<Photo> photoRef = new ModelRef<Photo>(Photo.class);
-    
-    // Commentへの1対多の関連 
+
+    // Commentへの1対多の関連
     @Attribute(persistent=false)
     private InverseModelListRef<Comment, Head> commentRef =
         new InverseModelListRef<Comment, Head>(Comment.class, CommentMeta.get().headRef, this);
- 
-    
+
+
 
 
     /**
