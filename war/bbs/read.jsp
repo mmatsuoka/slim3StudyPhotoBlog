@@ -56,7 +56,7 @@
     <table>
       <thead><tr><td colspan="2">コメントの投稿</td></tr></thead>
       <tbody>
-        <tr><td class="label">お名前</td><td class="elem"><input type="text" ${f:text("username")} class="normal ${f:errorClass("username","err")}"/><span class="err">${errors.username}</span></td></tr>
+        <tr><td class="label">投稿者</td><td class="elem"><input type="text" ${f:text("username")} class="normal ${f:errorClass("username","err")}"/><span class="err">${errors.username}</span></td></tr>
         <tr><td>コメント</td><td><textarea name="comment" class="smalltext ${f:errorClass("comment","err")}">${f:h(comment)}</textarea><div class="err">${errors.comment}</div></td></tr>
         <tr><td colspan=2><input type="submit" value=" 投稿する " class="button"/></td></tr>
       </tbody>
