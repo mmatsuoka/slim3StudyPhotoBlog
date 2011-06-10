@@ -1,4 +1,4 @@
-<%@page pageEncoding="UTF-8" isELIgnored="false" session="false"%>
+<%@page pageEncoding="UTF-8" isELIgnored="false" session="true"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -12,7 +12,7 @@
 </head>
 <body>
   <div id="page">
-  <h1>SimpleBBS</h1><div> ${f:h(user.email)} : ${f:h(user.userId)} : ${f:h(user.nickname)} </div>
+  <h1>SimpleBBS</h1>
   <div class="err">${errors.message}</div>
   <table>
     <thead>
