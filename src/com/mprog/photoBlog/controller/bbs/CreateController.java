@@ -11,8 +11,8 @@ public class CreateController extends Controller {
     @Override
     public Navigation run() throws Exception {
 
-        User user = sessionScope("authUser");
-        requestScope("username",user.getNickname() );
+        User user = sessionScope(SessionKeys.AUTH_USER);
+        requestScope(RequestKeys.USERNAME,user.getNickname() );
         return forward("create.jsp");
     }
 }

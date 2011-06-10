@@ -35,10 +35,10 @@ public class DeleteEntryController extends Controller {
             return forward(basePath);
         }
         
-        if (!asString("password").equals(head.getPassword())) {
+        if (!asString(RequestKeys.PASSWORD).equals(head.getPassword())) {
             // パスワードが不一致の場合は記事詳細へ戻る
             errors.put(
-                "password",
+                RequestKeys.PASSWORD,
                 ApplicationMessage.get("error.password.invalid"));
             return forward("read");
         }

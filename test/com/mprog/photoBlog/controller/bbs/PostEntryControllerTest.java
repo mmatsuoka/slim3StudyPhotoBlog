@@ -19,7 +19,7 @@ public class PostEntryControllerTest extends ControllerTestCase {
     private static final String SUBJECT = "タイトルです";
     private static final String USERNAME = "投稿者名です";
     private static FileItem PHOTO = makeFileItem();
-    private static final String PASSWORD = "password";
+    private static final String PASSWORD = RequestKeys.PASSWORD;
 
     public static FileItem makeFileItem() {
 
@@ -58,7 +58,7 @@ public class PostEntryControllerTest extends ControllerTestCase {
         
         tester.requestScope("photo", photo);
         
-        tester.param("password", password);
+        tester.param(RequestKeys.PASSWORD, password);
         tester.request.setMethod("POST");
         tester.start("/bbs/postEntry");
         return tester.getController();
@@ -235,7 +235,7 @@ public class PostEntryControllerTest extends ControllerTestCase {
         // ========== assertion start ========== //
         assertInvalidParameters(); // 入力値NG
         // password のエラーメッセージがセットされていること
-        assertThat(tester.getErrors().get("password"), is(notNullValue()));
+        assertThat(tester.getErrors().get(RequestKeys.PASSWORD), is(notNullValue()));
         // ========== assertion end ========== //
     }
 
@@ -267,7 +267,7 @@ public class PostEntryControllerTest extends ControllerTestCase {
         // ========== assertion start ========== //
         assertInvalidParameters(); // 入力値NG
         // password のエラーメッセージがセットされていること
-        assertThat(tester.getErrors().get("password"), is(notNullValue()));
+        assertThat(tester.getErrors().get(RequestKeys.PASSWORD), is(notNullValue()));
         // ========== assertion end ========== //
     }
 

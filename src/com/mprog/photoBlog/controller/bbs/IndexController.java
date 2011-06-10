@@ -18,11 +18,11 @@ public class IndexController extends Controller {
 
         UserService us = UserServiceFactory.getUserService();
         User user = us.getCurrentUser();
-        sessionScope("authUser", user);
+        sessionScope(SessionKeys.AUTH_USER, user);
 
         BlogService service = new BlogService();
         List<Head> headList = service.getAll();
-        requestScope("headList", headList);
+        requestScope(RequestKeys.HEAD_LIST, headList);
         return forward("index.jsp");
     }
 }

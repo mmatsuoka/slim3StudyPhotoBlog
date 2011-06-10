@@ -6,8 +6,6 @@ import java.util.logging.Logger;
 import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
 import org.slim3.controller.upload.FileItem;
-import org.slim3.controller.validator.Validators;
-import org.slim3.util.ApplicationMessage;
 import org.slim3.util.BeanUtil;
 import org.slim3.util.StringUtil;
 
@@ -31,7 +29,7 @@ public class PostEntryController extends Controller {
             return forward("create");
         }
 
-        User user = sessionScope("user");
+        User user = sessionScope(SessionKeys.AUTH_USER);
         Head head = new Head();
         Photo photo = new Photo();
 
@@ -40,7 +38,7 @@ public class PostEntryController extends Controller {
         head.setPostDate(new Date());
         head.setUser(user);
 
-        FileItem fi = requestScope("photo");
+        FileItem fi = requestScope(RequestKeys.PHOTO);
 
         photo = new Photo();
         photo.setPhotoImage(fi.getData());
@@ -55,17 +53,17 @@ public class PostEntryController extends Controller {
 
     private boolean validate() {
         PhotoBlogValidators v = new PhotoBlogValidators(request);
-        v.add("title", v.required(), v.maxlength(50));
-        v.add("username", v.required(), v.maxlength(50));
+        v.add(RequestKeys.TITLE, v.required(), v.maxlength(50));
+        v.add(RequestKeys.USERNAME, v.required(), v.maxlength(50));
 
-        FileItem fi = requestScope("photo");
+        FileItem fi = requestScope(RequestKeys.PHOTO);
 
         if (!ContentTypeUtil.isImage(fi)) {
-            v.add("photo", v.isImageFile(null) );
+            v.add(RequestKeys.PHOTO, v.isImageFile(null) );
         }
 
-        if (!StringUtil.isEmpty(param("password"))) {
-            v.add("password", v.minlength(6), v.maxlength(20));
+        if (!StringUtil.isEmpty(param(RequestKeys.PASSWORD))) {
+            v.add(RequestKeys.PASSWORD, v.minlength(6), v.maxlength(20));
         }
 
 

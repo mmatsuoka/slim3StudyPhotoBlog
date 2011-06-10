@@ -24,7 +24,7 @@ public class UpdateEntryControllerTest extends ControllerTestCase {
 
     private BlogService service = new BlogService();
     private String keyString = null;
-    private static final String PASSWORD = "password";
+    private static final String PASSWORD = RequestKeys.PASSWORD;
 
     // 初期登録の値
     private static final String BEFORE_TITLE = "タイトルです";
@@ -82,7 +82,7 @@ public class UpdateEntryControllerTest extends ControllerTestCase {
     private UpdateEntryController updateEntry(String title, String username, String imagePath ) throws Exception {
      
         tester.param("key", keyString);     // hidden 
-        tester.param("password", PASSWORD); // hidden
+        tester.param(RequestKeys.PASSWORD, PASSWORD); // hidden
         tester.param("title", title);
         tester.param("username", username);
         

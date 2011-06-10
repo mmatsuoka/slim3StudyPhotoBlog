@@ -22,7 +22,7 @@ public class DeleteEntryControllerTest extends ControllerTestCase {
     private String keyString = null;
     
     // 正しいパスワード
-    private static final String PASSWORD = "password";
+    private static final String PASSWORD = RequestKeys.PASSWORD;
     
     
     @Override
@@ -57,7 +57,7 @@ public class DeleteEntryControllerTest extends ControllerTestCase {
         
         // 記事編集で削除ボタンが押下された動作をエミュレート
         tester.param("key", keyString);
-        tester.param("password", "password");
+        tester.param(RequestKeys.PASSWORD, RequestKeys.PASSWORD);
         tester.request.setMethod("POST");
         tester.start("/bbs/deleteEntry");
         
@@ -86,7 +86,7 @@ public class DeleteEntryControllerTest extends ControllerTestCase {
         
         // 記事編集で削除ボタンが押下された動作をエミュレート
         tester.param("key", keyString);
-        tester.param("password", "password");
+        tester.param(RequestKeys.PASSWORD, RequestKeys.PASSWORD);
         tester.request.setMethod("POST");
         tester.start("/bbs/deleteEntry");
         DeleteEntryController controller = tester.getController();

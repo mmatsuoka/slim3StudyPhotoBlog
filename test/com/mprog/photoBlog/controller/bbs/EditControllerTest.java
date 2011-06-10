@@ -21,7 +21,7 @@ public class EditControllerTest extends ControllerTestCase {
     private String keyString = null;
     
     // 正しいパスワード
-    private static final String PASSWORD = "password";
+    private static final String PASSWORD = RequestKeys.PASSWORD;
     
     @Override
     // 各テストの前に実行される処理
@@ -67,7 +67,7 @@ public class EditControllerTest extends ControllerTestCase {
         
         // 記事詳細ページから正しいパスワードが入力されてきた動作をエミュレート
         tester.param("key", keyString);
-        tester.param("password", PASSWORD);
+        tester.param(RequestKeys.PASSWORD, PASSWORD);
         tester.request.setMethod("POST");
         tester.start("/bbs/edit");
         EditController controller = tester.getController();
@@ -77,7 +77,7 @@ public class EditControllerTest extends ControllerTestCase {
         assertThat(controller, is(notNullValue()));
         // requestScopeに記事情報がセットされていること
         assertThat(tester.requestScope("key"), is(notNullValue()));
-        assertThat(tester.requestScope("password"), is(notNullValue()));
+        assertThat(tester.requestScope(RequestKeys.PASSWORD), is(notNullValue()));
         assertThat(tester.requestScope("title"), is(notNullValue()));
         assertThat(tester.requestScope("username"), is(notNullValue()));
         
@@ -96,7 +96,7 @@ public class EditControllerTest extends ControllerTestCase {
         
         // 記事詳細ページから不正なパスワードが入力されてきた動作をエミュレート
         tester.param("key", keyString);
-        tester.param("password", "hogehoge");
+        tester.param(RequestKeys.PASSWORD, "hogehoge");
         tester.request.setMethod("POST");
         tester.start("/bbs/edit");
         
@@ -110,7 +110,7 @@ public class EditControllerTest extends ControllerTestCase {
         assertThat(tester.requestScope("key"), is(notNullValue()));
         
         // パスワードのエラーメッセージがセットされていること
-        assertThat(tester.getErrors().get("password"), is(notNullValue()));
+        assertThat(tester.getErrors().get(RequestKeys.PASSWORD), is(notNullValue()));
         
         // 記事詳細ページへフォワードしていること
         assertThat(tester.getDestinationPath(), is("/bbs/read"));
@@ -127,7 +127,7 @@ public class EditControllerTest extends ControllerTestCase {
         
         // 記事詳細ページから正しいパスワードが入力されてきた動作をエミュレート
         tester.param("key", keyString);
-        tester.param("password", PASSWORD);
+        tester.param(RequestKeys.PASSWORD, PASSWORD);
         tester.request.setMethod("POST");
         tester.start("/bbs/edit");
         EditController controller = tester.getController();

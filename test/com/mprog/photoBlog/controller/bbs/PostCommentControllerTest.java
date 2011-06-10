@@ -25,7 +25,7 @@ public class PostCommentControllerTest extends ControllerTestCase {
     private static final String COMMENT = "コメント本文です。";
     
     // 正しいパスワード
-    private static final String PASSWORD = "password";
+    private static final String PASSWORD = RequestKeys.PASSWORD;
     
     private BlogService service = new BlogService();
     private String keyString = null;
