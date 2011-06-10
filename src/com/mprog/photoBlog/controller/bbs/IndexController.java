@@ -18,10 +18,7 @@ public class IndexController extends Controller {
 
         UserService us = UserServiceFactory.getUserService();
         User user = us.getCurrentUser();
-//        requestScope("user", user);
-        sessionScope("user", user);
-
-
+        sessionScope("authUser", user);
 
         BlogService service = new BlogService();
         List<Head> headList = service.getAll();

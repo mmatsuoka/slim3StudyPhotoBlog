@@ -47,7 +47,6 @@
 		<dispatcher>ERROR</dispatcher>
 	</filter-mapping>
 
-	<!-- 認証フィルターの設定  -->
 	<filter>
 		<filter-name>authFilter</filter-name>
 		<filter-class>com.mprog.photoBlog.filter.AuthFilter</filter-class>
@@ -120,7 +119,6 @@
 		</auth-constraint>
 	</security-constraint>
 
-	<!-- 認証フィルターの設定  -->
 	<security-constraint>
 		<web-resource-collection>
 			<url-pattern>/bbs/*</url-pattern>
