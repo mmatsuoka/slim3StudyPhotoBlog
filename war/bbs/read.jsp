@@ -7,6 +7,70 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
+<script type="text/javascript">
+jQuery(function($) {
+	  $('.show_thumb').click(function(event) {
+	    // リンクの移動はキャンセル
+	    event.preventDefault();
+
+	    // 画像の情報を準備
+	    var elLink = $(this);
+	    var title = elLink.children().attr('alt');
+	    var url = elLink.attr('href');
+	    var width = 640; // Math.min(640, screen.width);
+	    var height = 640; // Math.min(640, screen.height);
+
+	    // ウィンドウを開く際のオプションを準備
+	    var left = undefined;
+	    var top = undefined;
+	    var optionTextList = [];
+	    $.each({
+	      width: width,
+	      height: height,
+	      left: left,
+	      top: top,
+	      menubar: 'no',
+	      toolbar: 'no',
+	      location: 'no',
+	      status: 'no',
+	      resizable: 'no',
+	      scrollbars: 'no'
+	    }, function(name, value) {
+	      if (value !== undefined) {
+	        optionTextList.push(name + '=' + value);
+	      }
+	    });
+
+	    // ウィンドウを開く
+	    var thumbWindow = window.open('about:blank', null, optionTextList.join(','));
+	    thumbWindow.document.open();
+	    thumbWindow.document.write(
+
+	      '<html>' +
+	        '<head>' +
+	          '<meta charset="utf-8" />' +
+	          '<title>' + title + '</title>' +
+	        '</head>' +
+	        '<body style="margin:0;">' +
+	          '<div' +
+	            ' style="cursor: pointer;"' +
+	            ' title="クリックして閉じる"' +
+	            ' onclick="window.close();">' +
+	            '<img src="' + url + '"' +
+	              //' width="' + width + '"' +
+	              //' height="' + height + '"' +
+	              ' alt="" />' +
+	          '</div>' +
+	        '</body>' +
+	      '</html>' +
+	      '');
+	    thumbWindow.document.close();
+	  });
+	});
+</script>
+
 <title>SimpleBBS</title>
 <link href="/css/bbs.css" rel="stylesheet" type="text/css" />
 </head>
@@ -22,7 +86,10 @@
       <div class="read_header">${f:h(head.username)} さん （<fmt:formatDate value="${head.postDate}" pattern="yyyy/MM/dd HH:mm:ss" />）</div>
       <hr>
       <div class="read_body">${f:br(f:h(body.text))}</div>
-       <div class="read_body"><img src="/bbs/image?key=${f:h(head.key)}" style="max-height:300px; max-width:200px;" /></div>
+       <div class="read_body">
+       <a class="show_thumb" href="/bbs/image?key=${f:h(head.key)}">
+       <img title="クリックすると原寸大で表示" src="/bbs/image?size=s&key=${f:h(head.key)}" style="max-height:300px; max-width:200px;" /></div>
+      	</a>
       <div class="read_footer">
         <span class="err">${errors.password}</span>
         <form method="post" action="edit" style="display: inline">
