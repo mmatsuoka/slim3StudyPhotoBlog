@@ -9,5 +9,6 @@ public interface RequestKeys {
     public static final String HEAD_LIST = "headList";
     public static final String KEY = "key";
     public static final String MESSAGE = "message";
+    public static final String SIZE = "size";
 
 }
