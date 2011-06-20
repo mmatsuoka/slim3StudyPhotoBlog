@@ -9,31 +9,31 @@ import org.slim3.util.ApplicationMessage;
 
 public class ImageFileValidator extends AbstractValidator {
 
-    private static final int maxFileSize = 1024 * 1024;
-    
+    private static final int maxFileSize = 1024 * 1000;
+
     public ImageFileValidator() {
         super(null);
     }
 
-    
+
     public ImageFileValidator(String message) {
         super(message);
     }
 
     public String validate(Map<String, Object> parameters, String name) {
-        
-        
+
+
         Object value = parameters.get(name);
         if (value == null || "".equals(value)) {
             return null;
         }
-        
+
         FileItem fi = (FileItem)value;
         if(fi.getData() == null ){
             return null;
         }
-        
-        
+
+
         if(! isImageContentType(fi)){
             if (message != null) {
                 return message;
@@ -42,8 +42,8 @@ public class ImageFileValidator extends AbstractValidator {
                 "validator.isNotImageFile",
                 getLabel(name) );
         }
-        
-       
+
+
         if(fi.getData().length > maxFileSize ){
             if (message != null) {
                 return message;
@@ -52,11 +52,11 @@ public class ImageFileValidator extends AbstractValidator {
                 "validator.maxFileSize",
                 getLabel(name) );
         }
-        
-        return null;
-        
 
-        
+        return null;
+
+
+
     }
 
     @Override
@@ -70,16 +70,16 @@ public class ImageFileValidator extends AbstractValidator {
         if(StringUtils.isEmpty(fi.getContentType())){
             return false;
         }
-        
+
         if(fi.getContentType().startsWith("image")){
             return true;
         }else{
             return false;
         }
-        
-        
+
+
     }
 
-    
+
 
 }

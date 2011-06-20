@@ -43,7 +43,7 @@ public class PostEntryController extends Controller {
         photo = new Photo();
         photo.setPhotoImage(fi.getData());
 
-                BlogService service = new BlogService();
+        BlogService service = new BlogService();
         service.insert(head, photo);
 
         return redirect(basePath);
@@ -55,10 +55,11 @@ public class PostEntryController extends Controller {
         PhotoBlogValidators v = new PhotoBlogValidators(request);
         v.add(RequestKeys.TITLE, v.required(), v.maxlength(50));
         v.add(RequestKeys.USERNAME, v.required(), v.maxlength(50));
+        v.add(RequestKeys.PHOTO, v.required());
 
         FileItem fi = requestScope(RequestKeys.PHOTO);
 
-        if (!ContentTypeUtil.isImage(fi)) {
+        if (fi != null ) {
             v.add(RequestKeys.PHOTO, v.isImageFile(null) );
         }
 
