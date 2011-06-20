@@ -88,8 +88,9 @@ jQuery(function($) {
       <div class="read_body">${f:br(f:h(body.text))}</div>
        <div class="read_body">
        <a class="show_thumb" href="/bbs/image?key=${f:h(head.key)}">
-       <img title="クリックすると原寸大で表示" src="/bbs/image?size=s&key=${f:h(head.key)}" style="max-height:300px; max-width:200px;" /></div>
+       <img title="クリックすると原寸大で表示" src="/bbs/image?size=s&key=${f:h(head.key)}" style="max-height:300px; max-width:200px;" />
       	</a>
+      	</div>
       <div class="read_footer">
         <span class="err">${errors.password}</span>
         <form method="post" action="edit" style="display: inline">
