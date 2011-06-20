@@ -25,12 +25,18 @@ public class ImageFileValidator extends AbstractValidator {
 
         Object value = parameters.get(name);
         if (value == null || "".equals(value)) {
-            return null;
+            return ApplicationMessage.get(
+                "validator.required",
+                getLabel(name) );
         }
 
         FileItem fi = (FileItem)value;
-        if(fi.getData() == null ){
-            return null;
+        if(fi == null || fi.getData() == null ){
+
+            return ApplicationMessage.get(
+                "validator.required",
+                getLabel(name) );
+
         }
 
 

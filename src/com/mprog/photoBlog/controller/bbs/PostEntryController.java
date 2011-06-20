@@ -55,13 +55,7 @@ public class PostEntryController extends Controller {
         PhotoBlogValidators v = new PhotoBlogValidators(request);
         v.add(RequestKeys.TITLE, v.required(), v.maxlength(50));
         v.add(RequestKeys.USERNAME, v.required(), v.maxlength(50));
-        v.add(RequestKeys.PHOTO, v.required());
-
-        FileItem fi = requestScope(RequestKeys.PHOTO);
-
-        if (fi != null ) {
-            v.add(RequestKeys.PHOTO, v.isImageFile(null) );
-        }
+        v.add(RequestKeys.PHOTO, v.isImageFile() );
 
         if (!StringUtil.isEmpty(param(RequestKeys.PASSWORD))) {
             v.add(RequestKeys.PASSWORD, v.minlength(6), v.maxlength(20));
