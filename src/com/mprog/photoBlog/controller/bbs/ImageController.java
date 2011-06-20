@@ -6,7 +6,6 @@ import org.slim3.controller.Navigation;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.images.CompositeTransform;
 import com.google.appengine.api.images.Image;
-import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.Transform;
 import com.mprog.photoBlog.model.Head;
