@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.util.Set;
 
 import org.junit.Test;
 import org.slim3.controller.upload.FileItem;
@@ -30,7 +31,7 @@ public class PostEntryControllerTest extends ControllerTestCase {
             return null;
         }
 
-        return new FileItem("photo", "jpeg", readImage.getImageData());
+        return new FileItem("photo", "image/jpeg", readImage.getImageData());
 
     }
 
@@ -46,18 +47,18 @@ public class PostEntryControllerTest extends ControllerTestCase {
         // ========== assertion start ========== //
         assertThat(controller, is(notNullValue()));
         assertValidParameters(); // 入力値OK
-        
+
         // ========== assertion end ========== //
     }
 
     // 記事作成ページでPOSTした動作をエミュレート
-    private PostEntryController postEntry(String subject, String username,
+    private PostEntryController postEntry(String title, String username,
             FileItem photo, String password) throws Exception {
-        tester.param("subject", subject);
+        tester.param("title", title);
         tester.param("username", username);
-        
+
         tester.requestScope("photo", photo);
-        
+
         tester.param(RequestKeys.PASSWORD, password);
         tester.request.setMethod("POST");
         tester.start("/bbs/postEntry");
@@ -67,11 +68,18 @@ public class PostEntryControllerTest extends ControllerTestCase {
 
     // バリデーションOKな入力値であること
     private void assertValidParameters() {
-        
+
         // 1件の記事が登録されていること
         assertThat(service.getAll().size(), is(1));
 
         // エラーメッセージが１つもセットされていないこと
+        if(!tester.getErrors().isEmpty()){
+            Set<String> set = tester.getErrors().keySet();
+            for(String s : set){
+                System.out.println(tester.getErrors().containsValue(s));
+            }
+
+        }
         assertThat(tester.getErrors().isEmpty(), is(true));
 
         // トップページにリダイレクトしていること
@@ -103,20 +111,20 @@ public class PostEntryControllerTest extends ControllerTestCase {
     }
 
     @Test
-    public void testSubjectEmpty() throws Exception {
+    public void testTitleEmpty() throws Exception {
         // -----<< タイトル未入力で入力値NGのテスト >>----- //
         postEntry("", USERNAME, PHOTO, PASSWORD);
-        
+
         // ========== assertion start ========== //
         assertInvalidParameters(); // 入力値NG
-        
+
         // subject のエラーメッセージがセットされていること
-        assertThat(tester.getErrors().get("subject"), is(notNullValue()));
+        assertThat(tester.getErrors().get("title"), is(notNullValue()));
         // ========== assertion end ========== //
     }
 
     @Test
-    public void testSubjectLentgh51() throws Exception {
+    public void testTitleLentgh51() throws Exception {
         // -----<< タイトル文字数51文字で入力値NGのテスト >>----- //
         String char51 =
             "０１２３４５６７８９"
@@ -129,7 +137,7 @@ public class PostEntryControllerTest extends ControllerTestCase {
         // ========== assertion start ========== //
         assertInvalidParameters(); // 入力値NG
         // subject のエラーメッセージがセットされていること
-        assertThat(tester.getErrors().get("subject"), is(notNullValue()));
+        assertThat(tester.getErrors().get("title"), is(notNullValue()));
         // ========== assertion end ========== //
     }
 
@@ -152,7 +160,7 @@ public class PostEntryControllerTest extends ControllerTestCase {
     public void testUsernameEmpty() throws Exception {
         // -----<< 投稿者名未入力で入力値NGのテスト >>----- //
         postEntry(SUBJECT, "", PHOTO, PASSWORD);
-        
+
         // ========== assertion start ========== //
         assertInvalidParameters(); // 入力値NG
         // username のエラーメッセージがセットされていること
@@ -195,16 +203,16 @@ public class PostEntryControllerTest extends ControllerTestCase {
 
     @Test
     public void testPhotoEmpty() throws Exception {
-        
+
         // -----<< 写真未入力で入力値NGのテスト >>----- //
         postEntry(SUBJECT, USERNAME, null, PASSWORD);
-        
+
         // ========== assertion start ========== //
         assertInvalidParameters(); // 入力値NG
-        
+
         // text のエラーメッセージがセットされていること
         assertThat(tester.getErrors().get("photo"), is(notNullValue()));
-        
+
         // ========== assertion end ========== //
     }
 
